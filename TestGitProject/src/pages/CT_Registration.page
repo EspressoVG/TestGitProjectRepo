@@ -1,0 +1,60 @@
+<apex:page Controller="CT_Registration" showHeader="false" sidebar="false" >
+    
+    <apex:sectionHeader title="Customer Registration" subtitle="New Customer Registration" />
+        
+    <apex:form >       
+        <apex:pageBlock tabStyle="Registeration__c">
+            <apex:pageMessages id="messages">
+            </apex:pageMessages>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Save" action="{!saveMe}" reRender="messages"/>
+                
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Enter the Details" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name"></apex:outputLabel>
+                    <apex:inputField value="{!regInstance.Name__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Age"></apex:outputLabel>
+                    <apex:inputField value="{!regInstance.Age__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >    
+                    <apex:outputLabel value="Birthday"></apex:outputLabel>
+                    <apex:inputField value="{!regInstance.Birthday__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Phone"></apex:outputLabel>
+                    <apex:inputField value="{!regInstance.Phone__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Email"></apex:outputLabel>
+                    <apex:inputField value="{!regInstance.Email__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Is this your first Visit?"></apex:outputLabel>    
+                    <apex:inputCheckbox value="{!regInstance.New_Customer__c}" required="false" />
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Product Interest"></apex:outputLabel>
+                    <apex:inputField value="{!regInstance.Product_Interest__c}"/>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="About You"></apex:outputLabel>    
+                    <apex:inputTextarea rows="10" cols="100" richText="true" value="{!regInstance.About_Me__c}"/>
+                </apex:pageBlockSectionItem>
+                    
+                  
+          </apex:pageBlockSection>
+        </apex:pageBlock> 
+    </apex:form>            
+</apex:page>

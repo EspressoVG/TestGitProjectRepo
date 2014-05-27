@@ -1,0 +1,35 @@
+<apex:page standardController="Account">
+    <script language="javascript" type="text/javascript">
+        function ChangeColor ()
+        {
+        alert("Hello! I am an alert box!!");
+        	document.getElementById(accName).styleClass = 'style1'; 
+        }
+        </script>
+        
+        <style type="text/css">
+            .style1{
+            backgroundcolor: green
+            }
+            .style2
+            {
+            backgroundcolor: red
+            }
+		</style>
+    <apex:form id="form">
+    	<apex:sectionHeader title="Section Header"/>
+        <apex:pageBlock id="pageBlock" title="My Content">
+        <apex:pageMessages ></apex:pageMessages>
+            <div>
+                <apex:outputField value="{!Account.Name}" id="accName"/>
+                <apex:commandLink title="abc" onclick="ChangeColor(this)" id="link1"/>
+            </div>
+            <div>
+                hello
+                <apex:commandLink title="abc" onclick="ChangeColor(this)" id="link2"/> 
+                <apex:commandButton title="def" onmouseover="ChangeColor()" id="button1"/>
+            </div>
+        </apex:pageBlock>
+        <apex:pageBlock id="table2"/>
+    </apex:form>
+</apex:page>

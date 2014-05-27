@@ -1,0 +1,88 @@
+<apex:page standardController="Contact">
+	<!-- Transalator Code -->
+	<script src="http://www.google.com/jsapi" type="text/javascript">
+	</script>
+	<script type="text/javascript">
+	
+		google.load("language", "1");
+		
+		function initialize() {
+			allLabels = document.getElementById("maindiv").getElementsByTagName("label");
+			for(var i = 0; i < allLabels.length; i++){
+				translate(allLabels[i]);
+			}
+		
+			allH2 = document.getElementById("maindiv").getElementsByTagName("h2");
+			for(var i = 0; i < allH2.length; i++){
+				translate(allH2[i]);
+			}
+		
+			allH1 = document.getElementById("maindiv").getElementsByTagName("h1");
+			for(var i = 0; i < allH1.length; i++){
+				translate(allH1[i]);
+			}
+		}
+		
+		function translate(lbl){
+			var text = lbl.innerHTML;
+			google.language.translate(text, "en", "{!$CurrentPage.parameters.language}", function(result) {
+				if (!result.error) {
+					lbl.innerHTML = result.translation;
+				}
+			});
+		}
+		google.setOnLoadCallback(initialize);
+	</script>
+	
+	<!-- Transalator Code -->
+	
+	
+	
+	<apex:form >
+	
+		<div style="width:90%;text-align:left" id="maindiv">
+		<apex:sectionHeader title="Contact Form" subtitle="Multilingual Contact Form"/>
+		<label>Please select a language for translation the page: </label>
+		<select onChange="changelanguage()" id="languagelist">
+			<option value="en">English</option>
+			<option value="de">deutsch</option>
+			<option value="pt">português</option>
+			<option value="fr">français</option>
+			<option value="ja">日本語</option>
+			<option value="ar">عَرَبيْ</option>
+			<option value="it">italiano</option>
+			<option value="ru">pусский</option>
+			<option value="po">polski</option>
+			<option value="zh-CN">中文</option>
+			<option value="es">español</option>
+			<option value="ko">한국어</option>
+			<option value="nl">nederlands</option>
+			<option value="hi">हिन्दी </option>
+			<option value="el">Ελληνική</option>
+			<option value="ro">română</option>
+		</select>
+		<br/>
+		<label>This is a demo page to show the power of Google Transation API with Force.com :-</label>
+		<apex:pageBlock title="Please fill the form">
+			<apex:pageBlockSection >
+				<apex:inputField value="{!Contact.FirstName}"/>
+				<apex:inputField value="{!Contact.LastName}"/>
+				<apex:inputField value="{!Contact.Email}"/>
+				<apex:inputField value="{!Contact.Phone}"/>
+				<apex:inputField value="{!Contact.Title}"/>
+				<apex:inputField value="{!Contact.Birthdate}"/>
+				<apex:inputField value="{!Contact.Description}"/>
+			</apex:pageBlockSection> 
+		</apex:pageblock>
+		</div>
+	</apex:form>
+	<script>
+		function changelanguage(){
+			var language = document.getElementById("languagelist").value;
+			window.location.href = "/apex/CT_MultiLingualTranslator?language=" + language;
+		}
+		var lang = "{!$CurrentPage.parameters.language}";
+		var language = document.getElementById("languagelist");
+		language.value = lang;
+	</script>
+</apex:page>

@@ -1,0 +1,25 @@
+<apex:page Controller="CT_Registration">
+    <apex:form >
+        <apex:pageMessages />
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="save" action="{!saveMe}"/>
+                
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Enter the fields">
+                Name:<apex:inputText value="{!PersonName}"/>
+                Age:<apex:inputText value="{!Age}"/>
+                Birthday:<apex:inputText value="{!Birthday}"/>
+                Phone:<apex:inputText value="{!Phone}"/>
+                Product Interest:<apex:selectList value="{!prodInterest}" multiselect="false" size="1">
+                    <apex:selectOptions value="{!prodInterestList}"/>
+                </apex:selectList>
+                Lead Source:<apex:selectList value="{!leadSource}" multiselect="false" size="1">
+                    <apex:selectOptions value="{!leadSourceList}"/>
+                </apex:selectList>  
+                     
+            </apex:pageBlockSection>
+        </apex:pageBlock> 
+    </apex:form>            
+</apex:page>

@@ -1,0 +1,69 @@
+<apex:page controller="DF12ActionController" docType="html-5.0" showHeader="false" standardStylesheets="false">
+<apex:composition template="DF12Template">
+
+    <apex:define name="pageTitle">DF '12: &lt;apex:actionFunction&gt; Example</apex:define>
+
+    <apex:define name="header">
+        <h1 class="pageTitle">Find Customer</h1>
+        <h4>&lt;apex:actionFunction&gt; Example</h4>
+    </apex:define>
+
+    <apex:define name="body">
+        <apex:form >
+            <apex:actionFunction name="findMeSomeCustomers" action="{!doSearch}" reRender="customers" oncomplete="DF12Examples.handleActionFunctionCompletion();">
+                <apex:param name="customerLastName" assignTo="{!customerLastName}" value=""/>
+            </apex:actionFunction>
+            <input id="searchField" type="text" placeholder="Enter Last Name"/>
+            <button type="button" onclick="console.log('Step 1: Search button clicked.');DF12Examples.handleButtonClick();">Search</button>
+            <apex:outputPanel layout="block" id="customers">
+                <apex:dataTable value="{!searchResults}" var="sr">
+                    <apex:column >{!sr.LastName}, {!sr.FirstName}</apex:column>
+                </apex:dataTable>
+            </apex:outputPanel>
+        </apex:form>
+    </apex:define>
+
+    <apex:define name="pageScripts">
+        <script>
+
+            // startTime and endTime are only being created for logging purposes, but
+            // note that I am initializing their values to Date objects. this is so
+            // JavaScript doesn't have to guess what kind of variables they are
+            // (and therefore, doesn't have to change their datatype mid-execution).
+            // this is a best practice for all JS variable declarations to help with
+            // performance.
+            DF12Examples.startTime = new Date();
+            DF12Examples.endTime = new Date();
+
+            // gets called when the 'Search' button is clicked
+            DF12Examples.handleButtonClick = function() {
+                console.log('Step 2: JS function handleButtonClick() called.');
+                DF12Examples.startTime = Date.now();
+                // the JS function findMeSomeCustomers is automatically created for you
+                // when you use an actionFunction tag (see above). the argument
+                // being passed into this function corresponds to the param tag
+                // nested inside the actionFunction tag.
+                console.log('Step 3: JS function that maps to Apex controller method doSearch() - via apex:actionFunction tag - called.');
+                findMeSomeCustomers(document.getElementById('searchField').value);
+            };
+
+            // gets called when the apex controller method that is bound to the
+            // actionFunction tag's 'action' attribute (in this case, 'doSearch()')
+            // completes processing
+            DF12Examples.handleActionFunctionCompletion = function() {
+                console.log('Step 4: AJAX call complete. Re-rendering apex:dataTable component.');
+                DF12Examples.endTime = Date.now();
+                if (console) {
+                    console.log(
+                        'elapsed time: ' + 
+                        (DF12Examples.endTime - DF12Examples.startTime) + 
+                        'ms'
+                    );
+                }
+            };
+
+        </script>
+    </apex:define>
+
+</apex:composition>
+</apex:page>

@@ -1,0 +1,37 @@
+<apex:page >
+	<head>
+		<style type ="text/css">
+			body {margin-top: 0px;margin-left: 0px;}
+				element.style {
+				margin-top: 150px;
+				height: 270px;
+				margin-bottom: 15px;
+				}
+			.link1{
+				font-size:24px;
+				font-weight:bold;
+				display:block;
+				color :red;
+			}
+
+			.link2 {
+				margin: 0px 100px 10px 200px; 
+				color:green;
+				font-size:15px;
+				width: 230px;
+				background-color: lightgrey;
+			}
+		</style>
+	</head>
+	<body>
+	<apex:form >
+		<apex:sectionHeader />
+		<apex:pageBlock >
+			<apex:pageBlockSection >
+				Registartion page:<apex:outputlink value="/apex/CT_Registration" style="background_color:crimsom; font-size: 15px; color:red;"> Registration </apex:outputlink>
+				Search and Delete page: <apex:outputlink value="/apex/CT_regSearchDelete" styleClass="link2"> Registrations Search and Delete </apex:outputlink>
+			</apex:pageBlockSection>
+		</apex:pageBlock>		
+	</apex:form>
+	</body>			
+</apex:page>

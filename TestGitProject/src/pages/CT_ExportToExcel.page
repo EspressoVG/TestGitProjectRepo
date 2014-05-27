@@ -1,0 +1,25 @@
+<apex:page Controller="CT_ExportToExcel" cache="true"  contentType="application/x-excel#abc.xls" language="en-US">
+   
+ <!--   <style>
+       .num {
+          mso-number-format:General;
+        }
+        .text{
+          mso-number-format:"\@";
+        }
+   </style> -->
+   
+   <apex:form >
+   <apex:pageBlock title="Hello {!$User.FirstName}!">
+   </apex:pageBlock>
+   <apex:pageBlock title="Values">
+    <apex:pageblockSection >
+      value1<apex:outputText value="{!value1}" /><br/>
+      value2<apex:outputText value="'{!value2}" /><br/>
+      value3<apex:outputText value=" {!value3}" /><br/>
+      value4<apex:outputText value=" {!value4}"/><br/>
+      value5<apex:outputText value="{!value5}" /><br/>
+    </apex:pageblockSection>  
+   </apex:pageBlock>
+  </apex:form> 
+</apex:page>

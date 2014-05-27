@@ -1,0 +1,24 @@
+<apex:page docType="html-5.0" showHeader="false" standardStylesheets="false">
+<html>
+
+<head>
+    <title><apex:insert name="pageTitle"/></title>
+    <apex:styleSheet value="{!$Resource.df_css}"/>
+    <apex:insert name="pageStylesheets"/>
+    <script>
+        /**
+         * let's create a JS namespace of our own so we don't pollute the global one.
+         */
+        var DF12Examples = {};
+    </script>
+</head>
+
+<body>
+    <a class="appLink" href="/home/home.jsp" style="display:none;">Go to Home Page</a>
+    <apex:insert name="header"/>
+    <apex:insert name="body"/>
+    <apex:insert name="pageScripts"/>
+</body>
+
+</html>
+</apex:page>

@@ -1,0 +1,10 @@
+<apex:component controller="picklistCheckController" >
+   
+  <apex:inputField value="{!trainerObj.Topics__c}"/>
+  <apex:inputField value="{!trainerObj.Sub_topics__c}"/>
+  
+  <apex:outputLabel for="inputList"> change the values </apex:outputLabel>
+  <apex:inputText value="{!bindField}" id="inputList" list="{!listString}"/>
+ 
+   
+</apex:component>

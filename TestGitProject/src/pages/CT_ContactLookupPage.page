@@ -1,0 +1,46 @@
+<apex:page sidebar="false" showHeader="false" Controller="CT_ContactLookupController" action="{!loadContactPage}" title="Search" setup="True">
+     <body class="hasMotif lookupTab LookupSearchFrame">
+	     <apex:form >
+	         <script>
+	             function closewindow(name,email,Id) {
+	                 window.parent.opener.populateTOContact(name,email,Id);
+	                 window.parent.close();
+	             }
+	         </script>
+	         <div class="lookupTab LookupSearchFrame">
+	         <div class="lookup">
+	         <div class="bPageTitle">
+	         <div class="ptBody secondaryPalette">
+	         <div class="content"><img src="/s.gif" alt=""  class="pageTitleIcon" title=""/>
+	         <h1>Lookup</h1>
+	         </div>
+	         </div>
+	         </div>
+	         <div class="pBody">
+	           <label for="lksrch">Search</label>
+	             <apex:inputText id="keyword" value="{!keyword}"></apex:inputText> 
+	             <apex:inputText style="display:none" id="hiddenBox" /> 
+	             <apex:commandButton value="Go!" action="{!getContacts}"></apex:commandButton>
+	         </div>
+	         </div>
+	         </div>
+	         <br />
+	         <div class="lookupSearch">
+	         <apex:pageMessages id="messages" />
+	         <apex:pageBlock title="Contacts [{!countofRecordStr}]" tabStyle="Contact" mode="detail" rendered="{!IF(countofRecordStr != null,true,false)}">
+		         <apex:pageBlockTable value="{!contList}" var="cont">
+		             <apex:column ><apex:facet name="header">Select Contact</apex:facet>
+		                  <apex:inputHidden id="nm" value="{!cont.Email}"/>
+		                  <apex:inputHidden id="nm1" value="{!cont.Id}"/>
+		                 <apex:outputLink id="theLink" onclick="closewindow('{!cont.Name}',document.getElementById('{!$Component.nm}').value, document.getElementById('{!$Component.nm1}').value)">{!cont.name}</apex:outputLink>
+		             </apex:column>
+		             <apex:column ><apex:facet name="header">Account Name</apex:facet>{!cont.Account.Name}</apex:column>
+		             
+		         </apex:pageBlockTable>
+		         <apex:outputText value="No records were found based on your criteria" rendered="{!IF(countofRecord = 0,true,false)}" />
+	         </apex:pageBlock>
+	         <div class="footer">Copyright © 2000-2012 salesforce.com, inc. All rights reserved.</div>
+	         </div>
+	     </apex:form>
+     </body>
+</apex:page>

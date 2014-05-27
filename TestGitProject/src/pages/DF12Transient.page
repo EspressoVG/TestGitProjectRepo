@@ -1,0 +1,57 @@
+<apex:page controller="DF12TransientController" docType="html-5.0" showHeader="false" standardStylesheets="false">
+<apex:composition template="DF12Template">
+
+    <apex:define name="pageTitle">DF '12: transient Keyword Example</apex:define>
+
+    <apex:define name="pageStylesheets">
+        <apex:stylesheet value="{!$Resource.df_css}"/>
+    </apex:define>
+
+    <apex:define name="header">
+        <h1 class="pageTitle"><span class="keyword">transient</span> Example</h1>
+    </apex:define>
+
+    <apex:define name="body">
+        <apex:form >
+            <h3>Client Information</h3>
+            <apex:pageBlock >
+                <apex:pageBlockButtons location="top">
+                    <apex:commandButton action="{!save}" value="Save"/>
+                </apex:pageBlockButtons>
+                <apex:pageBlockSection columns="2">
+                    <apex:inputField value="{!client.FirstName}"/>
+                    <apex:inputField value="{!client.LastName}"/>
+                    <apex:inputField value="{!client.Email}"/>
+                    <apex:inputField value="{!client.Phone}"/>
+                    <apex:inputField value="{!client.MobilePhone}"/>
+                    <apex:inputField value="{!client.MailingStreet}"/>
+                    <apex:inputField value="{!client.MailingCity}"/>
+                    <apex:inputField value="{!client.MailingState}"/>
+                    <apex:inputField value="{!client.MailingPostalCode}"/>
+                    <apex:inputField value="{!client.MailingCountry}"/>
+                    <apex:inputField value="{!client.HomePhone}"/>
+                    <apex:inputField value="{!client.Birthdate}"/>
+                    <apex:inputField value="{!client.AssistantName}"/>
+                    <apex:inputField value="{!client.AssistantPhone}"/>
+                    <apex:inputField value="{!client.Title}"/>
+                    <apex:inputField value="{!client.AccountId}"/>
+                </apex:pageBlockSection>
+            </apex:pageBlock>
+            <h3>Connections</h3>
+            <apex:repeat value="{!connections}" var="c">
+                <apex:outputText value="{!c.Name}, "/>
+            </apex:repeat>
+            <apex:outputText value=" and 500+ more."/>
+            <h3>Previous Employers</h3>
+            <apex:dataTable value="{!previousEmployers}" var="e">
+                <apex:column value="{!e.Name}"/>
+            </apex:dataTable>
+            <h3>Frequently Used Hashtags</h3>
+            <apex:dataTable value="{!hashTags}" var="h">
+                <apex:column value="{!h}"/>
+            </apex:dataTable>
+        </apex:form>
+    </apex:define>
+
+</apex:composition>
+</apex:page>

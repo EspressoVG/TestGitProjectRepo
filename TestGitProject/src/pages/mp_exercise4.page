@@ -1,0 +1,31 @@
+<apex:page standardController="Account" tabStyle="Contact">
+    <apex:iframe src="https://ap1.salesforce.com/01Z90000000a9cY" scrolling="true" id="theIframe"/>
+    
+    <apex:form >
+        <apex:pageBlock title="Page Block">            
+            <apex:pageBlockTable value="{!account}" title="Account Table" var="a">
+                <apex:column headerValue="Account Link- HeaderValue">
+                    <apex:commandLink value="{!a.Name}" rerender="detailOutputPanel">
+                        <apex:param name="accName" value="{!a.Id}"/>
+                    </apex:commandLink>
+                </apex:column>
+                <apex:column value="{!a.Phone}"/>
+                <apex:column value="{!a.Industry}"/>                
+            </apex:pageBlockTable>
+            <apex:outputPanel >
+                <apex:actionSupport event="onmouseover" rerender="detailOutputPanel">
+                    <apex:param name="accName" value="{!account.Id}"/>
+                </apex:actionSupport>
+                {!account.Name}
+            </apex:outputPanel>    
+            <apex:outputPanel id="detailOutputPanel" layout="block">
+                <apex:actionStatus startText="Requesting....">
+                <apex:facet name="stop">
+                    <apex:detail subject="{!$CurrentPage.parameters.accName}" relatedList="false" title="false"/>
+                </apex:facet>  
+                </apex:actionStatus>    
+            </apex:outputPanel>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

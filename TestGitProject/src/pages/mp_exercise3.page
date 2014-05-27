@@ -1,0 +1,25 @@
+<apex:page standardController="Account">
+    <apex:form >
+        <apex:pageBlock title="Page Block">
+            <apex:outputLink value="http://google.com/search">
+                Search Google
+                <apex:param name="q" value="{!Account.Name}"/>
+            </apex:outputLink>
+            <apex:pageBlockTable value="{!account.contacts}" title="Cotact Table" var="c">
+                <apex:column value="{!c.Name}"/>
+                <apex:column value="{!c.Phone}"/>
+                <apex:column value="{!c.Account.Name}"/>
+                <apex:column headerValue="Industry" title="abcde">
+                    <apex:outputLabel >
+                        <apex:outputText value="{!$CurrentPage.parameters.id}"/>
+                    </apex:outputLabel>
+                </apex:column>
+                <apex:column title="Industry">
+                    <apex:outputLabel title="Industry">
+                        <apex:inputField value="{!c.Account.Industry}" label="abc Industry"/>
+                    </apex:outputLabel>    
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page controller="test_PageReferenceClass" >
+    <apex:form >
+    	<apex:commandLink value="methodCalled" action="{!methodCalled}"/>
+        {!b}
+    </apex:form>
+</apex:page>

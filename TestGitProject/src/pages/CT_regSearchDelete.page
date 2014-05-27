@@ -1,0 +1,80 @@
+<apex:page Controller="CT_regSearchDelete">
+    <apex:form id="form">
+
+        <apex:pageblock >
+            <apex:pageMessages id="messages">
+            </apex:pageMessages>
+            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Search" action="{!searchMe}" rerender="details"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageblocksection title="Enter the fields to search" columns="4">
+            
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Name"></apex:outputLabel>
+                    <apex:inputText value="{!PersonName}"/>
+                </apex:pageBlockSectionItem>
+            
+            
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Product Interest"></apex:outputLabel>
+                    <apex:selectList value="{!prodInterest}" multiselect="false"    size="1">
+                        <apex:selectoptions value="{!prodInterestList}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="Lead Source"></apex:outputLabel>
+                    <apex:selectList value="{!leadSource}" multiselect="false"  size="1">
+                        <apex:selectoptions value="{!leadSourceList}" />
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageblocksection>
+          </apex:pageblock>
+          
+          <apex:pageblock id="details"> 
+            <apex:pageblocksection columns="1" rendered="{!If(regDetailList.size > 0, true, false)}" >
+                <apex:pageblockTable value="{!regDetailList}" var="regObj" width="100%" frame="box">
+                    
+                    <apex:column >
+                    <apex:commandLink action="{!DeleteReg}" value="Del">
+                    <apex:param name="objId" value="{!regObj.Id}"/>
+                    </apex:commandLink>
+                    </apex:column>
+                    
+                    <apex:column >
+                    <apex:facet name="header">Name</apex:facet>
+                    <apex:outputField value="{!regObj.Name__c}"></apex:outputField>
+                    </apex:column>
+                                  
+                    <apex:column >
+                    <apex:facet name="header">Age</apex:facet>
+                    <apex:outputField value="{!regObj.Age__c}" ></apex:outputField>
+                    </apex:column>
+    
+                    <apex:column >
+                        <apex:facet name="header">Birthday</apex:facet>
+                        <apex:outputField value="{!regObj.Birthday__c}"></apex:outputField>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Phone Number</apex:facet>
+                        <apex:outputField value="{!regObj.Phone__c}"></apex:outputField>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">Product Interest</apex:facet>
+                        <apex:outputField value="{!regObj.Product_Interest__c}"></apex:outputField>
+                    </apex:column>
+                    
+                    <apex:column >
+                        <apex:facet name="header">New Customer?</apex:facet>
+                        <apex:outputField value="{!regObj.New_Customer__c}"></apex:outputField>
+                    </apex:column>
+                                    
+                </apex:pageblockTable>
+              </apex:pageblocksection>      
+        </apex:pageblock>
+    </apex:form>    
+</apex:page>

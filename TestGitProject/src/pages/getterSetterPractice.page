@@ -1,0 +1,3 @@
+<apex:page controller="getterSetterController">
+  <apex:outputText value="{!showString}" label="OutPutText"></apex:outputText>
+</apex:page>

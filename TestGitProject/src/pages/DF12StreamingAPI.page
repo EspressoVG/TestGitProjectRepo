@@ -1,0 +1,55 @@
+<apex:page docType="html-5.0" controller="DF12StreamingAPIController" action="{!createPushTopicIfNecessary}" showHeader="false" standardStylesheets="false">
+
+<apex:styleSheet value="{!$Resource.AdvVFWebinarCSS}"/>
+
+<apex:composition template="DF12Template">
+
+    <apex:define name="pageTitle">DF '12: Streaming API Example</apex:define>
+
+    <apex:define name="header">
+        <h1 class="pageTitle">Streaming API Example</h1>
+    </apex:define>
+
+    <apex:define name="body">
+        <h4>New Accounts</h4>
+        <div id="target"></div>
+
+        <div class="cheatLinkSeparator">
+            <a class="cheatLink" href="{!$Page.DF12Poller}" title="Open apex:actionPoller Example">apex:actionPoller Example</a>
+        </div>
+
+    </apex:define>
+
+    <apex:define name="pageScripts">
+        <script src="{!URLFOR($Resource.streaming_api_js, 'cometd.js')}"></script>
+        <script src="{!URLFOR($Resource.streaming_api_js, 'jquery-1.5.1.js')}"></script>
+        <script src="{!URLFOR($Resource.streaming_api_js, 'json2.js')}"></script>
+        <script src="{!URLFOR($Resource.streaming_api_js, 'jquery.cometd.js')}"></script>
+        <script>
+            (function($) {
+                $(document).ready(function() {
+
+                    // first, connect to the salesforce cometd endpoint
+                    $.cometd.init({
+                        url: location.protocol + "//" + location.hostname + "/cometd/23.0/",
+                        requestHeaders: { Authorization : "OAuth {!$Api.Session_Id}" }
+                    });
+
+                    // second, subscribe to a PushTopic (i.e., a "channel")
+                    $.cometd.subscribe("/topic/NewAccounts", function(message) {
+                        $("#target").append(
+                            "<p class='newItemRow'><span class='newItem'>" +
+                            message.data.sobject.Name +
+                            "</span><span class='timeStamp'>at " +
+                            message.data.sobject.CreatedDate +
+                            "</span></p>"
+                        );
+                    });
+
+                }) // end document.ready
+            })(jQuery)
+        </script>
+    </apex:define>
+
+</apex:composition>
+</apex:page>

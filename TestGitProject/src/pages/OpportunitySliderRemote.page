@@ -1,0 +1,68 @@
+<apex:page controller="OpportunitySliderController">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  
+<apex:includeScript value="{!URLFOR($Resource.jQuery, 'js/jquery-1.5.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.jQuery, 'js/jquery-ui-1.8.11.custom.min.js')}" />
+
+<script>
+	j$ = jQuery.noConflict();
+	var sliders;
+	var opps;
+	function showResult(result, event) {
+      	if(event.type == 'exception') {
+              alert(event.message);
+        } else {
+        	opps = result;
+        	sliders = new Array();
+        	var innerHTML = '<table>';
+           	for(i = 0; i < result.length; i++) {
+           		innerHTML += "<tr><td>"+result[i].Name+"</td>";
+           		innerHTML += "<td id='oppTD"+result[i].Id+"'>"+result[i].Amount+"</td>";
+           		innerHTML += "<td><div id='opp"+result[i].Id+"' style='width:100px'></div><input id='oppInput"+result[i].Id+"' type='text' value='"+result[i].Amount+"' /></td>";
+           		innerHTML += "</tr>";
+           	}
+           	innerHTML += '</table>'
+           	document.getElementById('tableRows').innerHTML = innerHTML;
+           	
+           	for(var i = 0; i < result.length; i++) {
+           	  j$( "#opp"+result[i].Id ).slider({
+                value:result[i].Amount,
+                min: 0,
+                max: 1000000,
+                step: 1000,
+                slide: function( event, ui ) {
+                	setSliderValues();
+               		 }
+            		});
+           		}	
+           	  
+          }
+	}
+	
+	function setSliderValues() {
+		for(i = 0; i < opps.length; i++) {
+			document.getElementById('oppInput'+opps[i].Id).value = j$( "#opp"+opps[i].Id ).slider("value");
+		}
+	}
+	
+	function updateOpps() {
+		for(i = 0; i < opps.length; i++) {
+			OpportunitySliderController.updateOpportunity(opps[i].Id,document.getElementById('oppInput'+opps[i].Id).value,function() {});
+			document.getElementById('oppTD'+opps[i].Id).innerHTML = document.getElementById('oppInput'+opps[i].Id).value;
+		}
+	}
+</script>
+<select onchange="OpportunitySliderController.selectAccountRemote(this.options[this.selectedIndex].value,showResult)">
+<OPTION>Select Campaign</OPTION>
+<apex:repeat value="{!accounts}" var="account"  >
+	<OPTION Value="{!account.Id}">{!account.Name}</OPTION>
+</apex:repeat>
+</select>
+
+
+
+<div id="tableRows">
+</div>
+
+<button onClick='updateOpps()'>Update</button>
+</apex:page>

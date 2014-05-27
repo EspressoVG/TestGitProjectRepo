@@ -1,0 +1,25 @@
+<apex:page controller="CT_SearchOpportunityButtonController" sidebar="false" showheader="false">
+	<apex:form >
+		
+		<apex:pageBlock id="pageBlock1" title="Related Opportunities" >
+			<apex:pageMessages />
+			<apex:pageBlockButtons >
+				<apex:commandButton value="Go Back" action="{!BackButton}"/>
+			</apex:pageBlockButtons>	
+				<apex:pageBlockTable value="{!oppList}" var="o" id="pageBlockTable" rendered="{!NOT(ISNULL(oppList))}">
+					<apex:column HeaderValue="Name" >
+						<apex:outputField value="{!o.Name}"/>
+					</apex:column>
+					<apex:column HeaderValue="Stage Name" >
+						<apex:outputField value="{!o.StageName}"/>
+					</apex:column>
+					<apex:column HeaderValue="Amount" >
+						<apex:outputField value="{!o.Amount}" />
+					</apex:column>
+					<apex:column HeaderValue="CloseDate">
+						<apex:outputField value="{!o.CloseDate}" />
+					</apex:column>
+				</apex:pageBlockTable>
+		</apex:pageBlock>			
+	</apex:form>
+</apex:page>

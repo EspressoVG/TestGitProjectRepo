@@ -1,0 +1,32 @@
+<apex:page standardController="Account" extensions="mp_ControllerExtension" showHeader="False" sidebar="False">
+	<apex:form >
+		<apex:pageBlock id="accountPageBlok">
+			<apex:pageBlockSection id="accSection" columns="2">
+				<apex:outputText value="{!acc.Name}" id="accName"/>
+				<apex:outputText value="{!acc.Industry}" id="accIndustry"/>
+				<apex:outputText value="{!acc.Autonumber_Check__c}" id="accAutonumber"/>
+				<apex:outputText value="{!acc.CountOfContacts__c}" id="accNoOfContacts"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>
+		<apex:pageBlock id="cotactsBlock">
+			<apex:pageBlockButtons location="bottom">
+				<apex:commandButton action="{!saveCon}" value="SaveButton"/>
+				<apex:commandButton action="{!addCon}" value="AddButton"/>
+			</apex:pageBlockButtons>
+			<apex:pageBlockTable title="Contacts" id="contactTable" value="{!conList}" var="c">
+				<apex:column width="3%">
+					<apex:facet name="header">Contact Name</apex:facet>
+					<apex:inputField value="{!c.LastName}"/>
+				</apex:column>
+				<apex:column width="3%">
+					<apex:facet name="header">Contact Email</apex:facet>
+					<apex:inputField value="{!c.Email}"/>
+				</apex:column>
+				<apex:column width="3%">
+					<apex:facet name="header">Contact Created date</apex:facet>
+					<apex:inputField value="{!c.CreatedDate}"/>
+				</apex:column> 
+			</apex:pageBlockTable>	
+		</apex:pageBlock>	
+	 </apex:form> 
+</apex:page>

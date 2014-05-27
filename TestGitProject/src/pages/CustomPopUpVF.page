@@ -1,0 +1,8 @@
+<apex:page controller="CustomPopupController">
+<apex:form >
+    <apex:repeat value="{!accounts}" var="acc">                            
+          
+  <a href="/{!acc.Id}" id="{!acc.Id}" onblur="LookupHoverDetail.getHover('{!acc.Id}').hide();" onfocus="LookupHoverDetail.getHover('{!acc.Id}', '/{!acc.Id}/m?retURL=%2F{!acc.Id}&isAjaxRequest=1').show();" onmouseout="LookupHoverDetail.getHover('{!acc.Id}').hide();" onmouseover="LookupHoverDetail.getHover('{!acc.Id}', '/{!acc.Id}/m?retURL=%2F{!acc.Id}&isAjaxRequest=1').show();" >{!acc.Name}</a>
+    </apex:repeat>
+</apex:form>
+</apex:page>

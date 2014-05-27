@@ -1,0 +1,6 @@
+<apex:page standardController="Account">
+  <!-- Begin Default Content REMOVE THIS -->
+  <h1>Apex Detail Example</h1>
+  <apex:detail relatedList="true" showChatter="true" inlineEdit="true" subject="{!account.Id}"/>
+  <!-- End Default Content REMOVE THIS -->
+</apex:page>

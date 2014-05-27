@@ -1,0 +1,28 @@
+<apex:page controller="PdfEmailController">
+	<apex:sectionHeader title="PDF Example" subtitle="Submit a PDF"
+		description="Example of how to email a dynamically created PDF."/>
+	<apex:form >
+		<apex:pageMessages />
+		<apex:pageBlock title="PDF Input">
+		
+			<apex:pageBlockButtons >
+				<apex:commandButton action="{!sendPdf}" value="Send PDF"/>
+			</apex:pageBlockButtons>
+			
+			<apex:pageblockSection >
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Email to send to" for="email"/>
+					<apex:inputText value="{!email}" id="email" />
+				</apex:pageBlockSectionItem>
+			
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Account" for="account"/>
+					<apex:selectList value="{!accountId}" size="1" id="account">
+						<apex:selectOptions value="{!accounts}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+			</apex:pageblockSection>
+		</apex:pageBlock>
+	</apex:form>				
+							
+</apex:page>

@@ -1,0 +1,83 @@
+<apex:page controller="CT_ProductFilter" sidebar="false" showheader="false">
+	<apex:form >
+		<apex:PageBlock >
+			<apex:pageMessages />
+			<apex:PageBlockSection columns="3">
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="KeyWord :"/>
+					<apex:inputText value="{!inputKeyword}"/>
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Product Type/Name"/>
+					<apex:selectList value="{!prodTypeOrName}" multiSelect="false" size="1">
+					<apex:selectOptions value="{!prodPickList}"/>
+					</apex:selectList>
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem >
+					<apex:commandButton value="Search" action="{!searchProduct}" />
+				</apex:pageBlockSectionItem>
+			</apex:PageBlockSection>
+			
+			<apex:PageBlockSection id="productsPageBlockSection" columns="1" rendered="{!IF( searchFlag == true , true, false)}" > <!--  "{!IF( AND(searchFlag == true , searchedProdListHelper != null), true, false)}" -->
+				<apex:PageBlockSectionItem >
+					<apex:inputCheckbox value="{!prodFlag}" >
+						<b>Select All &nbsp;&nbsp;</b>
+						<apex:actionSupport event="onchange" action="{!selAllProducts}" rerender="productsPageBlockSection" />
+					</apex:inputCheckbox>
+					<apex:commandButton action="{!addProducts}" value="AddProducts" rerender="addedproductsPageBlockSection, productsPageBlockSection"/>
+				</apex:PageBlockSectionItem>
+					<apex:pageBlockTable value="{!searchedProdListHelper}" var="pro" frame="box" id="productsPageBlockSectionTable">
+						
+						<apex:column width="3%">
+							<apex:facet name="header">Select</apex:facet>
+							<apex:inputCheckbox value="{!pro.flag}"/>
+						</apex:column>
+						<apex:column width="15%">
+							<apex:facet name="header"> Product Name </apex:facet>
+							<apex:outputText value="{!pro.prodName}">
+							</apex:outputText>
+						</apex:column>
+						<apex:column width="15%">
+							<apex:facet name="header"> Product Code </apex:facet>
+							<apex:outputText value="{!pro.prodCode}">
+							</apex:outputText>
+						</apex:column>
+						<apex:column width="15%">
+							<apex:facet name="header"> Is Product Active? </apex:facet>
+							<apex:outputText value="{!pro.prodIsActive}">
+							</apex:outputText>
+						</apex:column>
+						
+					</apex:pageBlockTable>						
+			</apex:PageBlockSection>
+			<br/><br/><br/><br/><br/>
+			<apex:pageBlockSection columns="1" id="addedproductsPageBlockSection"  >
+				<apex:pageBlockTable value="{!addProdHelperList}" var="addPro" frame="box" id="addedproductsPageBlockSectionTable" 
+					rendered="{!IF (addFlag == true, true, false)}">
+							
+							<!--<apex:column width="3%">
+								<apex:facet name="header">Selected Products</apex:facet>
+								<apex:inputCheckbox value="{!addPro.flag}"/>
+							</apex:column> -->
+							<apex:column width="15%">
+								<apex:facet name="header"> Product Name </apex:facet>
+								<apex:outputText value="{!addPro.prodName}">
+								</apex:outputText>
+							</apex:column>
+							<apex:column width="15%">
+								<apex:facet name="header"> Product Code </apex:facet>
+								<apex:outputText value="{!addPro.prodCode}">
+								</apex:outputText>
+							</apex:column>
+							<apex:column width="15%">
+								<apex:facet name="header"> Is Product Active? </apex:facet>
+								<apex:outputText value="{!addPro.prodIsActive}">
+								</apex:outputText>
+							</apex:column>
+				</apex:pageBlockTable>				
+			</apex:pageBlockSection>
+		</apex:PageBlock>
+	</apex:form>
+</apex:page>

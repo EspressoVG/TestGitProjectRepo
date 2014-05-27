@@ -1,0 +1,50 @@
+<apex:page standardController="Opportunity" extensions="CT_OppSearchController" showHeader="false" sidebar="false" >
+	<style type = "text/css">
+		body{backround: red; padding-top: 15px}
+	</style>
+	<apex:form >
+		<apex:pageBlock title="Search for Opportunities by keyword" id="block" mode="edit">
+			<apex:pagemessages />
+			
+			<apex:pageBlockSection >
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel for="searchText">Keyword</apex:outputLabel>
+					<apex:panelGroup >
+					<apex:inputText id="searchText" value="{!searchText}"/>
+					<apex:commandButton value="SEARCH" action="{!searchME}" status="status"/>
+					</apex:panelGroup>
+				</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>
+			<apex:actionstatus id="status" startText="Searching....."/>
+		</apex:pageBlock>
+		<apex:pageBlock >
+			<apex:pageBlockSection id="resultsBlock" columns="1">
+				<apex:outputPanel id="pnlResult">
+					<apex:pageBlockTable value="{!oppResultList}" var="o" rendered="{!NOT(ISNULL(oppResultList))}">
+						<apex:column headerValue="Name">
+							<apex:outputLink value="/{!o.Id}">{!o.Name}</apex:outputLink>
+						</apex:column>
+						<apex:column HeaderValue="Stage Name" >
+							<apex:outputField value="{!o.StageName}" rendered="{!NOT(bEditClicked)}"/>
+							<apex:inputField value="{!o.StageName}" rendered="{!bEditClicked}"/>
+						</apex:column>
+						<apex:column HeaderValue="Amount" >
+							<apex:outputField value="{!o.Amount}" rendered="{!NOT(bEditClicked)}"/>
+							<apex:inputField value="{!o.Amount}" rendered="{!bEditClicked}"/>
+						</apex:column>
+						<apex:column HeaderValue="CloseDate">
+							<apex:outputField value="{!o.CloseDate}" rendered="{!NOT(bEditClicked)}"/>
+							<apex:inputField value="{!o.CloseDate}" rendered="{!bEditClicked}"/>
+						</apex:column>	
+						<apex:inlineEditSupport showOnEdit="saveButton, cancelButton" hideOnEdit="editButton" event="ondblclick"/>
+					</apex:pageBlockTable>
+				</apex:outputPanel>	
+			</apex:pageBlockSection>
+			<apex:PageBlockButtons >
+				<apex:commandButton value="Save" action="{!saveMe}" id="saveButton" reRender="resultsBlock"/>
+				<apex:commandButton value="Edit" action="{!editMe}" id="editButton" rerender="resultsBlock"/>
+				<apex:commandButton value="cancel" action="{!cancelMe}" id="cancelButton" rerender="resultsBlock"/>
+			</apex:PageBlockButtons>
+		</apex:pageBlock>
+	</apex:form>					 
+</apex:page>

@@ -1,0 +1,90 @@
+<apex:page standardController="Media_Campaign__c" extensions="CT_MediaCampaignController" >
+	<apex:sectionHeader title="Media Campaign" />
+		<apex:form >
+			<apex:pageBlock >
+				<apex:pageBlockButtons >
+			                 <td align="centre">
+			                    <apex:commandButton action="{!saveMethod}" value="Save" rerender="messages"/>
+			                    <apex:commandButton action="{!cancelMethod}" value="Cancel" immediate="true"/>
+			                 </td>
+			    </apex:pageBlockButtons>
+				<apex:pageBlockSection columns="2" id="pageBlockLPSectionId" showHeader="false">
+				
+	                <apex:pageBlockSectionItem id="pageBlockMcNameId">
+	                    <apex:outputLabel value="Media Campaign Name"/>
+	                    <apex:inputField value="{!mcInstance.Name}" /> 
+	                </apex:pageBlockSectionItem>
+	                <apex:pageBlockSectionItem id="pageBlockPRId">
+	                    <apex:outputLabel value="Projected Reach"/>
+	                    <apex:inputField value="{!mcInstance.Projected_Reach__c}" /> 
+	                </apex:pageBlockSectionItem>
+	                
+				</apex:pageBlockSection>
+				
+				<apex:pageBlockSection columns="2"  id="pnl">
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Select Status"/>
+						<apex:selectList value="{!status}" multiselect="false" size="1">
+			   				<apex:selectoptions value="{!statusList}"/>
+			   				<apex:actionSupport event="onchange" action="{!searchPitches}" rerender="wrapList,pnlCount,PaginationPanel"/>
+			     		</apex:selectList>
+					</apex:pageBlockSectionItem>
+					
+					<apex:pageBlockSectionItem >
+						<apex:outputLabel value="Selected Interview Pitches"/>
+						<apex:outputPanel id="pnlCount">
+							<apex:outputLabel value="{!selIntPitchCount}"/>
+						</apex:outputPanel>
+					</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+				
+				<apex:outputpanel id="PaginationPanel">
+					<apex:pageBlockSection columns="1"   id="pagination" >
+		                <apex:pageBlockSectionItem >
+		                    <apex:outputPanel id="listTools_Top" layout="block" styleClass="list-tools">
+		                      
+		                         <apex:commandLink action="{!previous}" rerender="wrapList,PaginationPanel" rendered="{!hasPrevious}">Previous Page&nbsp;</apex:commandLink>
+		                         <apex:outputText id="pageCounter" value="Page {0} of {1}">
+		                             <apex:param value="{!pageNumber}" />
+		                             <apex:param value="{!totalPages}" />
+		                         </apex:outputText>
+		                         <apex:commandLink action="{!next}" rerender="wrapList,PaginationPanel" rendered="{!hasNext}">&nbsp;Next Page</apex:commandLink>
+		                         
+		                      </apex:outputPanel>
+		                </apex:pageBlockSectionItem>
+		            </apex:pageBlockSection>
+	            </apex:outputpanel>
+				<apex:outputPanel id="wrapList">	            
+				<apex:pageBlockSection columns="1" >
+						<apex:pageBlockSectionItem >
+							<apex:pageBlocktable value="{!pitchesHelperList}" var="pl">
+								<apex:column width="2%">
+				                	<apex:facet name="header">Select</apex:facet>
+				                    <apex:inputCheckbox value="{!pl.flag}">
+				                    	<apex:actionSupport action="{!countSelected}" event="onclick" rerender="pnlCount"/>
+				                    </apex:inputCheckbox>
+				                </apex:column>
+								<apex:column width="2%">
+									<apex:facet name="header">Record Id</apex:facet>
+									{!pl.id}
+								</apex:column>
+								<apex:column width="2%">
+									<apex:facet name="header">Record Name</apex:facet>
+									{!pl.Name}
+								</apex:column>
+								<apex:column width="2%"> 
+									<apex:facet name="header">Status</apex:facet>
+									{!pl.status}
+								</apex:column>
+								<apex:column width="2%">
+									<apex:facet name="header">Media Campaign</apex:facet>
+									{!pl.mediaCampaign}
+								</apex:column>
+								
+							</apex:pageBlocktable>
+						</apex:pageBlockSectionItem>
+				</apex:pageBlockSection>
+				</apex:outputPanel>
+			</apex:pageBlock>
+		</apex:form>
+</apex:page>

@@ -1,0 +1,21 @@
+<apex:page controller="ChartController">
+    <apex:chart height="400" width="700" data="{!data}">
+        <apex:legend position="right"/>
+        <apex:axis type="Numeric" position="left" fields="data1"
+            title="Opportunities Closed" grid="true"/>
+        <apex:axis type="Numeric" position="right" fields="data3"
+            title="Revenue (millions)"/>
+        <apex:axis type="Category" position="bottom" fields="name"
+            title="Month of the Year">
+            <apex:chartLabel rotate="315"/>
+        </apex:axis>
+        <apex:barSeries title="Monthly Sales" orientation="vertical" axis="right"
+            xField="name" yField="data3">
+            <apex:chartTips height="20" width="120"/>
+        </apex:barSeries>
+        <apex:lineSeries title="Closed-Won" axis="left" xField="name" yField="data1"
+            fill="true" markerType="cross" markerSize="4" markerFill="#FF0000"/>
+        <apex:lineSeries title="Closed-Lost" axis="left" xField="name" yField="data2"
+            markerType="circle" markerSize="4" markerFill="#8E35EF"/>
+    </apex:chart>
+</apex:page>

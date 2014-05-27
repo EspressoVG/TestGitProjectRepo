@@ -1,0 +1,50 @@
+<apex:page standardController="Account" >
+    <apex:form >
+    <apex:pageBlock title="Hello {!$User.FirstName}!">
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton action="{!save}" value="Save Button- Value Attribute"/>
+            <apex:commandButton action="{!cancel}" value="Cancel Button - Value Attribute"/>
+        </apex:pageBlockButtons>
+        <apex:messages />
+        <apex:pageBlockSection columns="2">
+           <apex:pageBlockSectionItem >
+            <apex:outputLabel value="Output Label's Value Attribute">
+               <apex:inputField value="{!Account.Name}" style="background-color: green;align: center;"/>
+            </apex:outputLabel>
+            </apex:pageBlockSectionItem>    
+            <apex:pageBlockSectionItem >
+               <apex:outputLabel value="Output Label's Value Attribute">
+               <apex:inputText value="{!Account.Name}"/>
+            </apex:outputLabel>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>    
+        <apex:pageBlockSection columns="2">
+                 <apex:outputLabel value="Output Label 1">
+                    <apex:outputField value="{!Account.Name}"/>
+                 </apex:outputLabel>
+            
+                <apex:outputLabel value="Output Label 2">
+                    <apex:outputField value="{!Account.Name}"/>
+                 </apex:outputLabel>
+            
+                <apex:outputLabel value="Output Label 3">
+                    <apex:outputField value="{!Account.Name}"/>
+                 </apex:outputLabel>
+            
+                <apex:outputLabel value="Output Label 4">
+                    <apex:outputField value="{!Account.Name}"/>
+                 </apex:outputLabel>
+                  
+           
+        </apex:pageBlockSection>    
+     </apex:pageBlock>
+    </apex:form>
+</apex:page>
+<!-- You are viewing {!account.name} account
+        Change Account Name:
+        <apex:inputField value="{!Account.name}"/> <p/>
+        <apex:outputField value="{!Account.Industry}"/>
+        <apex:inputField value="{!Account.Industry}" label="abc Industry"/>
+        <apex:inputText value="{!Account.BillingCity}"/>
+        <apex:inputField value="{!Account.BillingCity}"/>
+-->

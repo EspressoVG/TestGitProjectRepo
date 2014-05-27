@@ -1,0 +1,48 @@
+<apex:page docType="html-5.0" showHeader="false" standardStylesheets="false">
+<apex:composition template="DF12Template">
+
+    <apex:define name="pageTitle">DF '12: Examples for "7 Habits of Highly Efficient Visualforce Pages"</apex:define>
+
+    <apex:define name="header">
+        <h1 class="pageTitle">Examples used in "7 Habits of Highly Efficient Visualforce Pages"</h1>
+    </apex:define>
+
+    <apex:define name="body">
+
+        <h2 class="separator">Visualforce View State</h2>
+        <h3>Documentation</h3>
+        <a href="http://wiki.developerforce.com/page/An_Introduction_to_Visualforce_View_State" target="df12doc" class="example">Blog: Introduction to Viewstate</a>
+        <h3>Example Pages</h3>
+        <a href="{!$Page.AdvVFWebinarViewState}" target="advvfwebinarviewstate" class="example">Understanding View State</a>
+
+        <h2 class="separator">@transient</h2>
+        <h3>Documentation</h3>
+        <a href="http://www.salesforce.com/us/developer/docs/apexcode/index_Left.htm#CSHID=apex_classes_keywords_transient.htm|StartTopic=Content%2Fapex_classes_keywords_transient.htm|SkinName=webhelp" target="df12doc" class="example">Developer Doc: Using the @transient Keyword</a>
+        <h3>Example Pages</h3>
+        <a href="{!$Page.DF12Transient}" target="df12transient" class="example">Using the @transient Keyword</a>
+
+        <h2 class="separator">&lt;apex:actionFunction&gt; vs. Visualforce Remoting</h2>
+        <h3>Documentation</h3>
+        <a href="http://blogs.developerforce.com/developer-relations/2011/05/tale-of-two-visualforce-pages-actionfunction-and-javascript-remoting.html" target="df12doc" class="example">Blog: Two Visualforce Pages: &lt;apex:actionFunction&gt; and JavaScript Remoting</a>
+        <a href="http://www.salesforce.com/us/developer/docs/pages/index_Left.htm#CSHID=pages_js_remoting.htm|StartTopic=Content%2Fpages_js_remoting.htm|SkinName=webhelp" target="df12doc" class="example">Developer Doc: JavaScript Remoting for Apex Controllers</a>
+        <h3>Example Pages</h3>
+        <a href="{!$Page.DF12Action}" target="df12action" class="example">Using &lt;apex:actionFunction&gt;</a>
+        <a href="{!$Page.DF12Remoting}" target="df12remoting" class="example">Using Visualforce Remoting</a>
+
+        <h2 class="separator">&lt;apex:actionPoller&gt; vs. Streaming API</h2>
+        <h3>Documentation</h3>
+        <a href="http://wiki.developerforce.com/page/Getting_Started_with_the_Force.com_Streaming_API" target="df12doc" class="example">Blog: Getting Started w/ the force.com Streaming API</a>
+        <a href="http://www.salesforce.com/us/developer/docs/api_streaming/index.htm" target="df12doc" class="example">Developer Doc: Force.com Streaming API Developer's Guide</a>
+        <h3>Example Pages</h3>
+        <a href="{!$Page.DF12Poller}" target="df12poller" class="example">Using &lt;apex:actionPoller&gt;</a>
+        <a href="{!$Page.DF12StreamingAPI}" target="df12streamingapi" class="example">Using the Streaming API</a>
+
+        <h2 class="separator">@future</h2>
+        <h3>Documentation</h3>
+        <a href="http://www.salesforce.com/us/developer/docs/apexcode/index_Left.htm#CSHID=apex_classes_annotation_future.htm|StartTopic=Content%2Fapex_classes_annotation_future.htm|SkinName=webhelp" target="df12doc" class="example">@future Annotation</a>
+        <h3>Example Pages</h3>
+        <a href="{!$Page.DF12Future}" target="df12future" class="example">Using the @future Annotation</a>
+    </apex:define>
+
+</apex:composition>
+</apex:page>

@@ -1,0 +1,5 @@
+<apex:page docType="html-5.0">
+    <apex:form >
+  <c:pickListCheckComponent ></c:pickListCheckComponent>
+  </apex:form>
+</apex:page>

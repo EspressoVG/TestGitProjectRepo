@@ -1,0 +1,7 @@
+<apex:page controller="User_Pic_Controller">
+    <apex:form >
+        <apex:image value="{!Photolink}" width="50px" height="50px"/>
+         Hello {!$User.FirstName} {!$User.LastName}
+       
+    </apex:form>
+</apex:page>

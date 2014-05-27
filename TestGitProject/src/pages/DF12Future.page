@@ -1,0 +1,66 @@
+<apex:page docType="html-5.0" controller="DF12FutureController" action="{!createSampleContactIfNecessary}" showHeader="false" standardStylesheets="false">
+<apex:composition template="DF12Template">
+
+    <apex:define name="pageTitle">DF '12: @future Example</apex:define>
+
+    <apex:define name="header">
+        <h1 class="pageTitle">@future Example</h1>
+    </apex:define>
+
+    <apex:define name="body">
+        <p>A sample contact has been created with the following information:</p>
+        <dl>
+            <dt>Contact Id:</dt>
+            <dd>{!customer.Id}</dd>
+            <dt>Contact First Name:</dt>
+            <dd>{!customer.FirstName}</dd>
+            <dt>Contact Last Name:</dt>
+            <dd>{!customer.LastName}</dd>
+            <dt>Contact Email:</dt>
+            <dd>{!customer.Email}</dd>
+        </dl>
+        <p>To see the @future method in action, click the button below. (This will send a sample email to the contact above.)</p>
+        <button type="button" onclick="DF12Examples.requestInvoices('{!customer.Id}');">Request Invoices</button>
+        <div class="pageMask" id="pageMask"></div>
+        <div class="pageWait" id="pageWait">working...</div>
+    </apex:define>
+
+    <apex:define name="pageScripts">
+        <script>
+
+            // startTime and endTime are only being created for logging purposes, but
+            // note that I am initializing their values to Date objects. this is so
+            // JavaScript doesn't have to guess what kind of variables they are
+            // (and therefore, doesn't have to change their datatype mid-execution).
+            // this is a best practice for all JS variable declarations to help with
+            // performance.
+            DF12Examples.startTime = new Date();
+            DF12Examples.endTime = new Date();
+
+            // this is the function that gets called when the button is clicked.
+            DF12Examples.requestInvoices = function(customerId) {
+                document.getElementById("pageMask").style.display = "block";
+                document.getElementById("pageWait").style.display = "block";
+                DF12Examples.startTime = Date.now();
+                DF12FutureController.requestAllInvoices(customerId, DF12Examples.handleResponse);
+            };
+
+            // this is the function that gets called when the apex method tagged
+            // with the @RemoteAction annotation is completed.
+            DF12Examples.handleResponse = function(results, event) {
+                document.getElementById("pageMask").style.display = "none";
+                document.getElementById("pageWait").style.display = "none";
+                if (event.status) {
+                    alert("Congratulations! Everything worked! The response from the server is:\n\n" + results);
+                }
+                DF12Examples.endTime = Date.now();
+                if (console) {
+                    console.log("elapsed time: " + (DF12Examples.endTime - DF12Examples.startTime) + "ms");
+                }
+            }
+
+        </script>
+    </apex:define>
+
+</apex:composition>
+</apex:page>

@@ -1,0 +1,13 @@
+<apex:page controller="mp_batchExercise" showHeader="False" sidebar="False">
+	<apex:form >
+		<apex:pageBlock id="accountPageBlok">
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton action="{!updateAction}" value="Update"/>
+            </apex:pageBlockButtons>
+            <apex:image url="{!URLFOR($Resource.Root, 'Hydrangeas.jpg')}" width="50" height="50"/>
+			<apex:pageBlockSection id="accSection" columns="2">
+				<apex:inputField value="{!a.Industry}" id="accIndustry"/>
+			</apex:pageBlockSection>
+		</apex:pageBlock>		
+	 </apex:form> 
+</apex:page>

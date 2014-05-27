@@ -1,0 +1,35 @@
+<apex:page controller="CT_SidebarSummary" sidebar="false" showHeader="false" standardStylesheets="true">
+    <apex:form >
+        <style type="text/css" media="all">
+            body{margin: 0; padding: 0; color: #000000; background-color: #E8E8E8;}
+            #DIV_Container {background-color: #F3F3EC;}
+        </style>
+        <div id="DIV_Container">
+        <apex:pageBlock id="pageBlock" tabStyle="Appointment__c">
+        <table  align="left">
+            <apex:repeat var="app" value="{!appList}" >
+            <tr><td align="right"><b>Name:</b>  </td><td>{!app.Name}</td></tr>
+            <tr><td align="right"><b>With:</b>  </td><td>{!app.Appointment_With__r.Name}</td></tr>
+            <tr><td align="right"><b>Time:</b>  </td>
+                <td>                    
+                    <apex:outputText value="{0,date,MM'/'dd'/'yyyy HH:MM:SS}">
+                        <apex:param value="{!app.Time_of_meeting__c}" /> 
+                    </apex:outputText>           
+                </td>            
+            </tr>
+            <tr><td><hr/></td><td><hr/></td></tr>
+            </apex:repeat>
+        </table>
+        </apex:pageBlock>   
+        <apex:actionPoller action="{!appointmentCounter}" rerender="pageBlock" interval="15"/>
+        </div>
+    </apex:form>    
+</apex:page>
+<!-- 
+    <apex:pageBlockTable value="{!appList}" var="app" id="pageblocktable" >
+                <apex:repeat var="cases" value="{!appList}" > 
+                Appointment Name:<apex:column value="{!app.Name}"/>
+                Appointment With:<apex:column value="{!app.Appointment_With__c}"/>
+                Appointment Time:<apex:column value="{!app.Time_of_meeting__c}"/>
+            </apex:pageBlockTable>
+ -->

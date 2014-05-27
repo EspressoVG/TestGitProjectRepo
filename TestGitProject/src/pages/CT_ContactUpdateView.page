@@ -1,0 +1,34 @@
+<apex:page controller="CT_ContactUpdate">
+	<apex:form >
+	<apex:pageBlock id="accBlock">
+		<apex:pageBlockSection columns="1">
+			Accounts:<apex:selectList value="{!accName}" multiselect="false" size="1">
+					<apex:selectOptions value="{!accList}" />
+			</apex:selectList>
+			<apex:commandButton value="SearchME" action="{!searchCont}" rerender="contWrapBlock"/>
+		</apex:pageBlockSection>
+	</apex:pageBlock>	
+		
+		<apex:pageblock id="contWrapBlock">	
+			<apex:pageblocksection columns="1" rendered="{!If(searchedContList.size > 0, true, false)}" >
+			    <apex:pageblockTable value="{!searchedContList}" var="contWrap" width="100%" frame="box">
+						
+					<apex:column width="3%">
+						<apex:facet name="header">Select</apex:facet>
+						<apex:inputCheckbox value="{!contWrap.flag}"/>
+					</apex:column>
+					<apex:column width="15%">
+						<apex:facet name="header"> Contact last Name </apex:facet>
+						<apex:inputText value="{!contWrap.contInstance.LastName}">
+						</apex:inputText>
+					</apex:column>
+					<apex:column width="15%">
+						<apex:facet name="header"> Contact First name </apex:facet>
+						<apex:inputText value="{!contWrap.contInstance.FirstName}" > 
+						</apex:inputText>
+					</apex:column>
+				</apex:pageblockTable>	
+			</apex:pageblocksection>
+		</apex:pageBlock>					
+	</apex:form>			
+</apex:page>

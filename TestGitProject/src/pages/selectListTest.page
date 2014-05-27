@@ -1,0 +1,12 @@
+<apex:page controller="selectList">
+  <apex:form >
+
+  
+      Select Your Account :
+      <apex:selectList value="{!accId}" multiselect="false" size="1" >
+          <apex:selectOptions value="{!listSelectOption}"/>
+          <apex:actionSupport event="onchange" action="{!showSelected}"  rerender="com"/>
+      </apex:selectList>
+  </apex:form>
+      
+</apex:page>

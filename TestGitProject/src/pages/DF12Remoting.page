@@ -1,0 +1,92 @@
+<apex:page controller="DF12RemotingController" docType="html-5.0" showHeader="false" standardStylesheets="false">
+
+<apex:styleSheet value="{!$Resource.AdvVFWebinarCSS}"/>
+
+<apex:composition template="DF12Template">
+
+    <apex:define name="pageTitle">DF '12: JavaScript Remoting Example</apex:define>
+
+    <apex:define name="header">
+        <h1 class="pageTitle">Find Customer</h1>
+        <h4>JavaScript Remoting Example</h4>
+    </apex:define>
+
+    <apex:define name="body">
+
+        <input id="searchField" type="text" placeholder="Enter Last Name"/>
+        <button type="button" onclick="console.log('Step 1: Search button clicked.');DF12Examples.handleButtonClick();">Search</button>
+        <table cellpadding="0" cellspacing="0">
+            <thead></thead>
+            <tfoot></tfoot>
+            <tbody id="results"></tbody>
+        </table>
+
+        <div class="cheatLinkSeparator">
+            <a class="cheatLink" href="{!$Page.DF12Action}" title="Open apex:actionFunction Example">apex:actionFunction Example</a>
+        </div>
+
+    </apex:define>
+
+    <apex:define name="pageScripts">
+        <script>
+
+            // startTime and endTime are only being created for logging purposes, but
+            // note that I am initializing their values to Date objects. this is so
+            // JavaScript doesn't have to guess what kind of variables they are
+            // (and therefore, doesn't have to change their datatype mid-execution).
+            // this is a best practice for all JS variable declarations to help with
+            // performance.
+            DF12Examples.startTime = new Date();
+            DF12Examples.endTime = new Date();
+
+            // gets called when the 'Search' button is clicked
+            DF12Examples.handleButtonClick = function() {
+                console.log('Step 2: JS function handleButtonClick() called.');
+                DF12Examples.startTime = Date.now();
+                var searchTerm = document.getElementById("searchField").value;
+                // call the apex controller method tagged w/ the @RemoteAction annotation.
+                // the syntax is ControllerName.methodName(methodArguments, jsCallbackFunctionName, options).
+                // the 'options' argument is optional.
+                console.log('Step 3: JS function that maps to Apex controller method doSearch(String customerLastName) - via @RemoteAction annotation - called.');
+                DF12RemotingController.doSearch(searchTerm, DF12Examples.renderResults);
+            };
+
+            // this is the js callback function that will execute when the @RemoteAction method
+            // in the apex controller is done executing. it will always receive two arguments
+            // passed from the controller method: 1) the JSON-encoded results, and an 'event'
+            // object, which tells you if everything went ok on the server side.
+            DF12Examples.renderResults = function (results, event) {
+                console.log('Step 4: Results recieved. JavaScript function renderResults() called.');
+                // if the apex method completed execution, event.status is true.
+                if (event.status) {
+                    // if there was an exception, you should handle it here.
+                    if (event.type === "exception") {
+                        // do stuff
+                    } else {
+                        // this is the empty <tbody> tag on the page
+                        var container = document.getElementById("results"),
+                                 html = [];
+                        for (var i=0, j=results.length; i<j; i++) {
+                            html.push("<tr><td>");
+                            html.push(results[i].LastName + ", " + results[i].FirstName);
+                            html.push("</td></tr>");
+                        }
+                        // this won't work in IE, because IE doesn't handle setting
+                        // innerHTML for <tr> or <tbody> tags. *sigh*. To get this
+                        // working in IE, you'd need to use document.createElement()
+                        // for every DOM node you want to create, then use appendChild()
+                        // to attach them to the correct parent.
+                        container.innerHTML = html.join("");
+                    }
+                }
+                DF12Examples.endTime = Date.now();
+                if (console) {
+                    console.log("elapsed time: " + (DF12Examples.endTime - DF12Examples.startTime) + "ms");
+                }
+            };
+
+        </script>
+    </apex:define>
+
+</apex:composition>
+</apex:page>

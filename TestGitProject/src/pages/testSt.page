@@ -1,0 +1,5 @@
+<apex:page standardController="Account" >
+   This is my <i>page</i>. <br/>
+   <apex:detail /> 
+   
+</apex:page>

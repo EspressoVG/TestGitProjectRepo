@@ -1,0 +1,25 @@
+<apex:page sidebar="false" showHeader="true" >
+
+<apex:includeScript value="{!$Resource.jqueryMin}"  />
+<apex:includeScript value="{!$Resource.jqueryRedirect}"/>
+
+
+
+<script type="text/javascript">
+    j$= jQuery.noConflict();
+    if(j$)
+    {
+         alert('jQuery Loded');
+         j$.redirect('https://jltonline.co.uk/secure/access2.asp?product=Photo&promCode=', {'iDateofBirthDay': '09', 'iDateofBirthMonth': '05', 'iDateOfBirthYear' : '1770', 'sPostcode' : '', 'sSchedule':'','formAccess': 'submit'}); 
+    }
+    else
+    { 
+        alert('jQuery Not Loaded'); 
+    }
+    
+</script>  
+  
+
+
+
+</apex:page>

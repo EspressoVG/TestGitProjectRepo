@@ -1,0 +1,13 @@
+<apex:page standardController="Account">
+    <apex:tabPanel switchType="client" selectedTab="tabdetails" id="AccountTabPanel">
+        <apex:tab label="Details-Label" name="xyz" id="tabDetails" title="Account Tab Title">
+            <apex:detail relatedList="false" title="true"/>
+        </apex:tab>
+        <apex:tab label="Contacts-Label" name="Contacts" id="tabContacts">
+            <apex:relatedList subject="{!account}" list="contacts"/>
+        </apex:tab>
+        <apex:tab label="Opportunities-Label" name="Opportunities" id="tabOpp">
+            <apex:relatedList subject="{!account}" list="opportunities"/>
+        </apex:tab>
+    </apex:tabPanel>
+</apex:page>

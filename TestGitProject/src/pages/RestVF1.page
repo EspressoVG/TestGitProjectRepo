@@ -1,0 +1,13 @@
+<apex:page id="page" controller="RESTController">
+  
+   <h1>REST API Demo</h1>
+   <p/>
+   <apex:form id="form">
+      <apex:pageBlock id="genToken" title="Generate Token">
+          <b>Username : </b><apex:inputText id="uname" value="{!uname}"/><t/>
+          <b>Password : </b><apex:inputSecret id="pwd" value="{!password}"/>
+          <apex:commandButton action="{!login}" value="Get Token"/>
+          <br/><br/>
+      </apex:pageBlock>
+   </apex:form>
+</apex:page>

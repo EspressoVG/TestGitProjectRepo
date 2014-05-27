@@ -1,0 +1,51 @@
+<apex:page controller="OpportunitySliderController">
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+  
+<apex:includeScript value="{!URLFOR($Resource.jQuery, 'js/jquery-1.5.1.min.js')}" />
+<apex:includeScript value="{!URLFOR($Resource.jQuery, 'js/jquery-ui-1.8.11.custom.min.js')}" />
+
+<script>
+	j$ = jQuery.noConflict();
+</script>
+<apex:form >
+<apex:actionFunction name="selectAccount" action="{!selectAccount}" rerender="campaignTable" oncomplete="resetSliders()">
+	<apex:param name="accountId" assignTo="{!accountId}" value="" />
+</apex:actionFunction>
+<select onchange="selectAccount(this.options[this.selectedIndex].value)">
+<OPTION>Select Campaign</OPTION>
+<apex:repeat value="{!accounts}" var="account"  >
+	<OPTION Value="{!account.Id}">{!account.Name}</OPTION>
+</apex:repeat>
+</select>
+
+<apex:outputpanel id="campaignTable">
+<script>
+	function resetSliders() {
+		<apex:repeat value="{!opportunities}" var="opp">
+		j$( "#opp{!opp.Id}" ).slider({
+                value:{!opp.Amount},
+                min: 0,
+                max: 1000000,
+                step: 1000,
+                slide: function( event, ui ) {
+                    j$( "#opp{!opp.Id}" ).next("input").val(ui.value );
+                }
+            });
+		</apex:repeat>
+	}
+</script>
+<table>
+<apex:repeat value="{!opportunities}" var="opp">
+ <tr>
+ 	<td>{!opp.Name}</td>
+ 	<td>{!opp.Amount}</td>
+ 	<td><div id="opp{!opp.Id}"></div>
+        <apex:inputText value="{!opp.Amount}" />
+    </td>
+ </tr>	
+</apex:repeat>
+</table>
+<apex:commandButton rerender="campaignTable" action="{!updateOpportunities}" value="Update" oncomplete="resetSliders()" />
+</apex:outputpanel>
+</apex:form>
+</apex:page>

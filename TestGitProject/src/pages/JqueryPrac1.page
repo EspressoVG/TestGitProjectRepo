@@ -1,0 +1,70 @@
+<apex:page sidebar="false" showHeader="false" showChat="false">
+    
+    <apex:includeScript value="{!$Resource.jqueryMin}"/>
+    <script>
+        //var $j = jQuery.noConflict();
+        $( document ).ready(function() {
+            
+            $("a").addClass("test");
+            $("#htmlButton").addClass("button");
+            $( "a" ).click(function( event ) {
+         
+                alert( "Thanks for visiting!" );
+                console.log('Link click prevented');
+                $.get( "https://c.ap1.visual.force.com/apex/JqueryPrac1", function( data){
+                    alert("indside calback function");
+                });
+                
+         
+            });
+            
+            $('#htmlButton').click(function(event){
+                alert('button click');
+            });
+     
+        });
+ 
+    </script>
+    <script>
+       /* var button = document.querySelector('#htmlButton');
+        button.addEventlistner("click", function(){
+            alert("button click");
+            console.log("button click");
+        }, false);*/
+        
+    </script>
+    <style>
+        a.test {
+            font-weight: bold;
+            font-color: green;
+            text-indent: 50%;
+
+        }
+        .button {
+            background-color:#44c767;
+            
+            cursor:pointer;
+            color:#ffffff;
+            font-family:arial;
+            font-size:17px;
+           
+            
+            
+        }
+        .button:hover {
+            background-color:#5cbf2a;
+        }
+        .button:active {
+            position:relative;
+            top:1px;
+        }
+
+    </style>
+    <apex:form >
+        <apex:outputLink id="LinkId" value="https://jquery.com/"> ClickMe!</apex:outputLink>
+        <apex:commandButton id="commandButtonNew" value="ClickButton"/>
+        <button id="htmlButton">Click Me!!</button>
+    </apex:form>  
+    
+
+</apex:page>

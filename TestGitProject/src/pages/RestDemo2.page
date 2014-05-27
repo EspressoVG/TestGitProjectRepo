@@ -1,0 +1,25 @@
+<apex:page id="page1" controller="RESTController">  
+   <h1>REST API Demo</h1> 
+   <p/> 
+   <apex:form id="form">     
+      
+      <apex:pageBlock id="rootCall" title="Root Call" rendered="{!NOT(ISNULL(token))}">
+          
+          <apex:commandLink id="ser1" action="{!searchObject}" value="{!service1}" rendered="{!S1}" rerender="makeQuery"/>&nbsp;&nbsp;&nbsp;<apex:inputText id="obj" value="{!inpObject}"/> 
+          <br/><br/>
+          <apex:commandLink id="ser2" value="{!service2}" rendered="{!S2}"/>
+          <br/><br/>
+          <apex:commandButton id="root" action="{!root}" value="root"/>
+          <br/><br/>
+          <apex:commandLink id="ser4" action="{!showRecentItems}" value="{!service4}" rendered="{!S4}" rerender="makeQuery"/> 
+          <!--
+          <br/><br/>
+          <b>Output : </b><apex:outputLabel value="{!rootResult}"/> <p/>
+          -->
+      </apex:pageBlock>
+      
+      <apex:pageBlock id="makeQuery" title="Result" rendered="{!NOT(ISNULL(token))}">          
+          <b>Output : </b><apex:outputLabel id="output" value="{!rootResultSet}" rendered="{!s5}"/>
+      </apex:pageBlock>
+   </apex:form>
+</apex:page>

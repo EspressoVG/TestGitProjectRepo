@@ -1,0 +1,5 @@
+<apex:page >
+    <apex:form >
+        <apex:outputLink value="{!$CurrentPage.parameters.Id}">Click to go the ID </apex:outputLink>
+    </apex:form>
+</apex:page>

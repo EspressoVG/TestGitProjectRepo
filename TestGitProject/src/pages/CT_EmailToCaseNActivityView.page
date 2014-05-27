@@ -1,0 +1,243 @@
+<apex:page controller="CT_EmailToCaseNActivity" >
+<script>
+    function openTOLookupPopUp(accId) {
+        
+        var keyword = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contName').value;
+        window.open('/apex/CT_ContactLookupPage?accId=' + accId + '&selEmails=' + document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contEmail').value + ';' + document.getElementById('hdnEmail').value,'Results','menubar=0,resizable=0,width=950,height=500,scrollbars=1');
+    }
+    function populateTOContact(name, email, Id) {
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contName').value=name;
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contEmail').value=email;
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contId').value=Id;
+     }
+     
+    function openADDLookupPopUp(accId) {
+        var addFlag = true;
+        var keyword = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId2:pageBlockASectionId2:contName2').value;
+        window.open('/apex/CT_RemainingContactsLookupPageView?selEmails='+document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contEmail').value+ '&accId=' + accId + '&addFlag=' + addFlag,'Results','menubar=0,resizable=0,width=950,height=500,scrollbars=1');
+    }
+    function populateADDContact(name, email, Id) {
+    	//alert(name);
+    	//alert(email);
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId2:pageBlockASectionId2:contName2').value=name;
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId2:pageBlockASectionId2:contEmail2').value=email;
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId2:pageBlockASectionId2:contId2').value=Id;
+         
+         	selectedEmails(email);
+         
+     }
+     
+     function openCCLookupPopUp(accId) {
+        var ccFlag = true;
+        var keyword = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contName3').value;
+        document.getElementById('hdnEmail').value = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contEmail3').value;
+        window.open('/apex/CT_RemainingContactsLookupPageView?selEmails='+document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contEmail').value+ ';' +document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId2:pageBlockASectionId2:contEmail2').value+ ';' +document.getElementById('hdnEmail').value + '&ccFlag=' + ccFlag,'Results','menubar=0,resizable=0,width=950,height=500,scrollbars=1');
+    }
+    function populateCCContact(name, email, Id) {
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contName3').value=name;
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contId3').value=Id;
+         if(document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contEmail3').value!= null &&
+         	document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contEmail3').value!= '')
+         	{
+         		if(email != null && email != '')
+         		document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contEmail3').value = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contEmail3').value + ';' +email;
+         	}
+         	else{
+         		document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId3:pageBlockASectionId3:contEmail3').value=email;
+         	}
+         	selectedEmails(email);
+     } 
+     
+     function openBCCLookupPopUp(accId) {
+        var bccFlag = true;
+        var keyword = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contName4').value;
+        document.getElementById('hdnEmail').value = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contEmail4').value;
+        window.open('/apex/CT_RemainingContactsLookupPageView?selEmails='+document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId:pageBlockASectionId1:contEmail').value+ ';' +document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId2:pageBlockASectionId2:contEmail2').value+ ';' +document.getElementById('hdnEmail').value + '&bccFlag=' + bccFlag,'Results','menubar=0,resizable=0,width=950,height=500,scrollbars=1');
+    }
+    function populateBCCContact(name, email, Id) {
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contName4').value=name;
+         document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contId4').value=Id;
+         if(document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contEmail4').value!= null &&
+         	document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contEmail4').value!= '')
+         	{
+         		if(email != null && email != '')
+         		document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contEmail4').value = document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contEmail4').value + ';' +email;
+         	}
+         	else{
+         		document.getElementById('j_id0:j_id2:pageBlockId:pageBlockSectionId4:pageBlockASectionId4:contEmail4').value=email;
+         	}
+         selectedEmails(email);	
+     }
+     
+    function selectedEmails(sEmail)
+	    {
+	    	if(document.getElementById('hdnEmail').value != null 
+	        	&& document.getElementById('hdnEmail').value != '')
+	        	document.getElementById('hdnEmail').value = document.getElementById('hdnEmail').value + ';' + sEmail;
+	        else
+	        	document.getElementById('hdnEmail').value = sEmail;	
+	    }
+    
+</script>
+    <apex:form >
+    	<input type="Hidden" id="hdnEmail" value=""/>       
+        <apex:pageBlock id="pageBlockId">
+            <apex:pageMessages id="messages" />
+            <apex:pageBlockButtons >
+                <apex:commandButton value="submit" action="{!SendEmail}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" id="pageBlockSectionId" showHeader="false">
+                <apex:pageBlockSectionItem id="pageBlockFromSectionItemId">
+                    <apex:outputLabel value="From"/>
+                    <apex:outputText value="{!emailStr}" /> 
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem id="pageBlockASectionId1" >
+	              <apex:outputLabel value="TO"/>
+	                  <apex:outputpanel >
+	                      <table border="0" width="100%">
+	                          <tr>
+	                              <td>
+	                                  <apex:inputText value="{!contactEmailStr}" id="contEmail"/>
+	                                  <apex:inputHidden value="{!contactName}" id="contName" />
+	                                  <apex:inputHidden value="{!contactIdStr}" id="contId"/>
+	                                   <a 
+	                                      href="JavaScript: openTOLookupPopUp('{!accId}')"
+	                                      id="LegalEntitySearchLink" 
+	                                      onclick="setLastMousePosition(event)" 
+	                                      title="Contact Lookup (New Window)">
+	                                       
+	                                       <img 
+	                                          id="SearchImage1"  
+	                                          src="/s.gif" 
+	                                          alt="Contact Lookup (New Window)" 
+	                                          class="lookupIcon"  
+	                                          onblur="this.className = 'lookupIcon';" 
+	                                          onfocus="this.className = 'lookupIconOn';" 
+	                                          onmouseout="this.className = 'lookupIcon';" 
+	                                          onmouseover="this.className = 'lookupIconOn';" 
+	                                          title="Contact Lookup (New Window)" />
+	                                   </a>
+	                              </td>
+	                          </tr>
+	                      </table>
+	                  </apex:outputpanel>
+	              </apex:pageBlockSectionItem>
+	        </apex:pageBlockSection>
+	              
+	              <apex:pageBlockSection columns="1" id="pageBlockSectionId2" showHeader="false">
+		              <apex:pageBlockSectionItem id="pageBlockASectionId2" >
+		              <apex:outputLabel value=" ADD TO:"/>
+		                  <apex:outputpanel >
+		                      <table border="0" width="100%">
+		                          <tr>
+		                              <td>
+		                                  <apex:inputText value="{!addToStr}" id="contEmail2"/>
+		                                  <apex:inputHidden value="{!addToName}" id="contName2" />
+		                                  <apex:inputHidden value="{!addToId}" id="contId2"/>
+		                                   <a 
+		                                      href="JavaScript: openADDLookupPopUp('{!accId}')"
+		                                      id="LegalEntitySearchLink" 
+		                                      onclick="setLastMousePosition(event)" 
+		                                      title="Contact Lookup (New Window)">
+		                                       
+		                                       <img 
+		                                          id="SearchImage1"  
+		                                          src="/s.gif" 
+		                                          alt="Contact Lookup (New Window)" 
+		                                          class="lookupIcon"  
+		                                          onblur="this.className = 'lookupIcon';" 
+		                                          onfocus="this.className = 'lookupIconOn';" 
+		                                          onmouseout="this.className = 'lookupIcon';" 
+		                                          onmouseover="this.className = 'lookupIconOn';" 
+		                                          title="Contact Lookup (New Window)" />
+		                                   </a>
+		                              </td>
+		                          </tr>
+		                      </table>
+		                  </apex:outputpanel>
+		              </apex:pageBlockSectionItem>
+	              </apex:pageBlockSection>
+	              
+	              <apex:pageBlockSection columns="1" id="pageBlockSectionId3" showHeader="false">
+		              <apex:pageBlockSectionItem id="pageBlockASectionId3" >
+		              <apex:outputLabel value="CC:"/>
+		                  <apex:outputpanel >
+		                      <table border="0" width="100%">
+		                          <tr>
+		                              <td>
+		                                  <apex:inputText value="{!ccStr}" id="contEmail3"/>
+		                                  <apex:inputHidden value="{!ccName}" id="contName3" />
+		                                  <apex:inputHidden value="{!ccId}" id="contId3"/>
+		                                   <a 
+		                                      href="JavaScript: openCCLookupPopUp('{!accId}')"
+		                                      id="LegalEntitySearchLink" 
+		                                      onclick="setLastMousePosition(event)" 
+		                                      title="Contact Lookup (New Window)">
+		                                       
+		                                       <img 
+		                                          id="SearchImage1"  
+		                                          src="/s.gif" 
+		                                          alt="Contact Lookup (New Window)" 
+		                                          class="lookupIcon"  
+		                                          onblur="this.className = 'lookupIcon';" 
+		                                          onfocus="this.className = 'lookupIconOn';" 
+		                                          onmouseout="this.className = 'lookupIcon';" 
+		                                          onmouseover="this.className = 'lookupIconOn';" 
+		                                          title="Contact Lookup (New Window)" />
+		                                   </a>
+		                              </td>
+		                          </tr>
+		                      </table>
+		                  </apex:outputpanel>
+		              </apex:pageBlockSectionItem>
+	              </apex:pageBlockSection>
+	              
+	              <apex:pageBlockSection columns="1" id="pageBlockSectionId4" showHeader="false">
+	              
+	              <apex:pageBlockSectionItem id="pageBlockASectionId4" >
+	              <apex:outputLabel value="BCC:"/>
+	                  <apex:outputpanel >
+	                      <table border="0" width="100%">
+	                          <tr>
+	                              <td>
+	                                  <apex:inputText value="{!bccStr}" id="contEmail4"/>
+	                                  <apex:inputHidden value="{!bccName}" id="contName4" />
+	                                  <apex:inputHidden value="{!bccId}" id="contId4"/>
+	                                   <a 
+	                                      href="JavaScript: openBCCLookupPopUp('{!accId}')"
+	                                      id="LegalEntitySearchLink" 
+	                                      onclick="setLastMousePosition(event)" 
+	                                      title="Contact Lookup (New Window)">
+	                                       
+	                                       <img 
+	                                          id="SearchImage1"  
+	                                          src="/s.gif" 
+	                                          alt="Contact Lookup (New Window)" 
+	                                          class="lookupIcon"  
+	                                          onblur="this.className = 'lookupIcon';" 
+	                                          onfocus="this.className = 'lookupIconOn';" 
+	                                          onmouseout="this.className = 'lookupIcon';" 
+	                                          onmouseover="this.className = 'lookupIconOn';" 
+	                                          title="Contact Lookup (New Window)" />
+	                                   </a>
+	                              </td>
+	                          </tr>
+	                      </table>
+	                  </apex:outputpanel>
+	              </apex:pageBlockSectionItem>
+	              
+	              <apex:pageBlockSectionItem id="subjectSectionItem" >
+					<apex:outputLabel value="Sub"/>
+					<apex:inputTextArea value="{!subjectStr}" style="width: 410px; height:20px" />
+				</apex:pageBlockSectionItem>
+				
+				<apex:pageBlockSectionItem id="bodySectionItem">
+					<apex:outputLabel value="Body"/>
+					<apex:inputTextArea value="{!bodyStr}" style="width: 410px; height:200px" />
+				</apex:pageBlockSectionItem>
+				
+            </apex:pageBlockSection>    
+        </apex:pageBlock> 
+    </apex:form>
+</apex:page>

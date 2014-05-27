@@ -1,0 +1,26 @@
+<apex:page Controller="FileCompareClass" sidebar="false" showheader="false">
+	<apex:form >
+		<apex:pageBlock >
+			<apex:pageBlockSection >
+				<apex:pageBlockSectionItem >
+					<apex:inputText value="{!strName}" label="Log Name"/>
+				</apex:pageBlockSectionItem>
+				<apex:pageBlockSectionItem >
+					<apex:outputLabel value="Attach File" for="file"/>
+          			<apex:inputFile value="{!file}" fileName="{!fileName}" contentType="{!contentType}"/>
+          		</apex:pageBlockSectionItem>
+          		<apex:pageBlockSectionItem >
+	          		<apex:outputLabel value="Attach Next File" for="file"/>
+    	      		<apex:inputFile value="{!file1}" fileName="{!fileName1}" />
+    	      	</apex:pageBlockSectionItem>
+			</apex:pageBlockSection>		
+			
+			<apex:commandButton value="Upload" action="{!uploadMethod}" />
+		</apex:pageBlock>
+		<apex:pageBlock >
+		
+			<apex:outputText value="{!att.Body}"/>
+		
+		</apex:pageBlock>
+	</apex:form>
+</apex:page>

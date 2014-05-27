@@ -1,0 +1,5 @@
+<apex:page >
+  <apex:form >
+      <apex:commandButton value="ConnectToLinkedin" />
+  </apex:form>
+</apex:page>

@@ -1,0 +1,26 @@
+<apex:page docType="html-5.0" showHeader="false" standardStylesheets="false" controller="DF12PollerController">
+<apex:composition template="DF12Template">
+
+    <apex:define name="pageTitle">DF '12: &lt;apex:actionPoller&gt; Example</apex:define>
+
+    <apex:define name="header">
+        <h1 class="pageTitle">&lt;apex:actionPoller&gt; Example</h1>
+    </apex:define>
+
+    <apex:define name="body">
+        <h4>New Accounts</h4>
+        <apex:form >
+            <apex:outputPanel layout="block" id="target">
+                <apex:repeat value="{!accounts}" var="a">
+                    <p class="newItemRow">
+                        <span class="newItem">{!a.Name}</span>
+                        <span class="timeStamp">at {!a.CreatedDate}</span>
+                    </p>
+                </apex:repeat>
+            </apex:outputPanel>
+            <apex:actionPoller action="{!find}" rerender="target" interval="20"/>
+        </apex:form>
+    </apex:define>
+
+</apex:composition>
+</apex:page>

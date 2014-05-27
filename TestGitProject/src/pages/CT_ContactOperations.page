@@ -1,0 +1,18 @@
+<apex:page standardController="Contact">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="save" action="{!save}"/>
+                <apex:commandButton value="Delete" action="{!delete}"/>
+            </apex:pageBlockButtons>
+            
+            <apex:pageBlockSection title="Enter the fields">
+                <apex:inputField value="{!contact.LastName}"/>
+                <apex:inputField value="{!contact.Title}"/>
+                <apex:inputField value="{!contact.Birthdate}"/>
+                <apex:inputField value="{!contact.LastName}"/>
+                <apex:inputField value="{!contact.LastName}"/>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>            
+</apex:page>

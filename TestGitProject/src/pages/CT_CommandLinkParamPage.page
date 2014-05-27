@@ -1,0 +1,14 @@
+<apex:page standardController="Contact" extensions="CT_CommandLinkParamController">
+    <apex:form >
+        <apex:commandLink value="Process Nickname" action="{!processLinkClick}">
+            <apex:param name="nickName"
+                value="{!contact.firstname}"
+                assignTo="{!nickName}"/>
+        </apex:commandLink>
+        <apex:commandButton value="Process Nickname" action="{!processLinkClick}">
+            <apex:param name="nickName"
+                value="{!contact.firstname}"
+                assignTo="{!nickName}"/>
+        </apex:commandButton>
+    </apex:form>
+</apex:page>

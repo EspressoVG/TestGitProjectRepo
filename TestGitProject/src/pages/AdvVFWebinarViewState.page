@@ -1,0 +1,55 @@
+<apex:page standardController="Account" extensions="AdvVFWebinarViewStateExtension">
+
+    <apex:styleSheet value="{!$Resource.AdvVFWebinarCSS}"/>
+    <apex:includeScript value="{!$Resource.jquery_1_8_3}"/>
+    <apex:includeScript value="{!$Resource.AdvVFWebinarJS}"/>
+
+    <apex:sectionHeader title="View State Example" subtitle="Opportunity QuickStart"/>
+
+    <apex:form styleClass="vfWebinarForm">
+
+        <a class="cheatLink" href="javascript:void(0);" onclick="VFWebinar.autoFillForm();" title="Autofill this form">Quick Fill for Demonstration</a>
+
+        <apex:pageMessages />
+
+        <apex:pageBlock mode="edit">
+
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save" action="{!save}"/>
+            </apex:pageBlockButtons>
+
+            <apex:pageBlockSection title="Contact Info" columns="1">
+                <apex:inputField value="{!primaryContact.FirstName}"/>
+                <apex:inputField value="{!primaryContact.LastName}"/>
+                <apex:inputField value="{!primaryContact.Phone}"/>
+                <apex:inputField value="{!primaryContact.Email}"/>
+                <apex:pageBlockSectionItem >
+                    <label for="{!$Component.isDecisionMaker}">Decision Maker</label>
+                    <apex:inputCheckbox id="isDecisionMaker" value="{!isDecisionMaker}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <label for="{!$Component.moreNames}">Additional Contact Names</label>
+                    <apex:inputText id="moreNames" styleClass="moreNames" value="{!moreNames}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Account Info" columns="1">
+                <apex:inputField value="{!Acc.Name}"/>
+                <apex:inputField value="{!Acc.Industry}"/>
+                <apex:inputField value="{!Acc.BillingCity}"/>
+            </apex:pageBlockSection>
+
+            <apex:pageBlockSection title="Opportunity Info" columns="1">
+                <apex:inputField value="{!Opp.Name}"/>
+                <apex:inputField value="{!Opp.Amount}"/>
+                <apex:inputField value="{!Opp.CloseDate}"/>
+                <apex:inputField value="{!Opp.StageName}"/>
+            </apex:pageBlockSection>
+
+        </apex:pageBlock>
+
+        <script>VFWebinar.init();</script>
+
+    </apex:form>
+
+</apex:page>

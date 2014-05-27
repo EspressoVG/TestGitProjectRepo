@@ -1,0 +1,4 @@
+<apex:page standardController="Account" >
+    Hello {!$User.FirstName}!
+    
+</apex:page>
